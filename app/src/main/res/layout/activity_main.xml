@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/lvProduct"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/txvNull"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+    <TextView
+        android:text="Khong co du lieu, vui long tao bang !!!"
+        android:layout_alignParentTop="true"
+        android:id="@+id/txvNull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <Button
+        android:layout_alignParentBottom="true"
+            android:text="tao bang"
+        android:id="@+id/btnCreateTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+
+        android:layout_toRightOf="@+id/btnCreateTable"
+        android:layout_alignParentBottom="true"
+        android:text="xoa bang"
+        android:id="@+id/btnDeleteTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+
+        android:text="them sp"
+        android:layout_toRightOf="@+id/btnDeleteTable"
+        android:layout_alignParentBottom="true"
+
+        android:id="@+id/btnAddProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+</RelativeLayout>
