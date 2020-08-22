@@ -56,6 +56,7 @@ public class CreateActivity extends AppCompatActivity {
                     bundle.putString("namesp",tenSP);
                     bundle.putString("costsp",cost);
                     intent.putExtra("product",bundle);
+
                     startActivity(intent);
 
 

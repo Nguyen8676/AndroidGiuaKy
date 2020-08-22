@@ -66,10 +66,10 @@ public class ProductAdapter extends BaseAdapter {
 
        holder.txtId.setText("id:"+product.getId());
         holder.txtTenSp.setText("ten sp:"+product.getTenSP());
-
         Double cost=product.getCost();
-
         holder.txtCost.setText("gia:"+cost.toString()+"$");
+
+
 
         return view;
     }

@@ -43,6 +43,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 try {
                     database.QueryData("INSERT INTO Product VALUES(null,'"+tensp+"'"+","+costSP+")");
                     Intent intent=new Intent(ConfirmActivity.this,MainActivity.class);
+
                     startActivity(intent);
                     finish();
 
@@ -59,6 +60,7 @@ public class ConfirmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ConfirmActivity.this,MainActivity.class);
+
                 startActivity(intent);
                 finish();
             }

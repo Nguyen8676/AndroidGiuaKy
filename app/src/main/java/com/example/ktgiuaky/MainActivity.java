@@ -1,7 +1,9 @@
 package com.example.ktgiuaky;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.text.GetChars;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
         // tao database
         database=new Database(this,"product.sqlite",null,3);
 
-
-
-
-
         CreateTable();
 
+
+      //
 
 
     }
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             deleteTable();
             AddProduct();
             getData();
+            DeleteProduct();
 
         }
 
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor dataProduct=database.GetData("SELECT * FROM Product");
 
-
+            listProduct.clear();
             while (dataProduct.moveToNext()){
 
                 int id=dataProduct.getInt(0);
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 database.QueryData("DROP TABLE IF EXISTS Product");
 
                 Intent intent = getIntent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 finish();
                 startActivity(intent);
 
@@ -163,10 +166,75 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,CreateActivity.class);
+
                 startActivity(intent);
+                finish();
             }
         });
     }
 
+    private void DeleteProduct(){
+        final Cursor dataProduct=database.GetData("SELECT * FROM Product");
 
+        while (dataProduct.moveToNext()){
+
+            int id=dataProduct.getInt(0);
+            String tensp=dataProduct.getString(1);
+            Double cost=dataProduct.getDouble(2);
+            final Product product=new Product(id,tensp,cost);
+            lvProduct.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    try {
+                        //  database.QueryData("DELETE FROM Product WHERE Id="+product.getId());
+                        AlertDialog.Builder alerdialog=new AlertDialog.Builder(MainActivity.this);
+                        alerdialog.setTitle("Delete Product");
+                        alerdialog.setMessage("Sure ?? :) ??");
+                        alerdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                database.QueryData("DELETE FROM Product WHERE Id="+product.getId());
+                                getData();
+//                                Intent intent = getIntent();
+//                                finish();
+//                                startActivity(intent);
+
+                            }
+                        });
+
+                        alerdialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                            }
+                        });
+
+                        alerdialog.show();
+
+                    }catch (Exception e){
+                        Log.d("Ex",e.toString());
+                    }
+
+                    return false;
+                }
+            });
+
+
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+
+        super.onBackPressed();
+        Intent intent = getIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(intent);
+    }
 }
